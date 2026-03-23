@@ -13,7 +13,7 @@
             --green-light: #e8f5f0;
             --green-dark: #1a5c49;
             --green-darker: #0f3d30;
-            --bg: #faf9f6;
+            --bg: #f2f0e4;
             --text: #1a1a1a;
             --text-secondary: #555;
             --text-muted: #999;
@@ -23,7 +23,7 @@
         body {
             font-family: 'Noto Sans JP', 'Inter', sans-serif;
             color: var(--text);
-            background: var(--white);
+            background: var(--bg);
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
@@ -31,9 +31,9 @@
 
         /* Header */
         header {
-            background: rgba(255,255,255,0.95);
+            background: rgba(242,240,228,0.95);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
             padding: 0.8rem 0;
             position: sticky;
             top: 0;
@@ -67,7 +67,7 @@
         .hero {
             padding: 7rem 0 5rem;
             text-align: center;
-            background: linear-gradient(180deg, #f0faf5 0%, var(--white) 100%);
+            background: var(--bg);
             position: relative;
         }
         .hero-logo { width: 180px; margin-bottom: 2.5rem; }
@@ -549,7 +549,7 @@
     <footer>
         <div class="container footer-inner">
             <div>
-                <img src="logo.png" alt="MEGURU" style="height: 26px; filter: brightness(10); margin-bottom: 0.3rem;"><br>
+                <img src="logo.png" alt="MEGURU" style="height: 26px; margin-bottom: 0.3rem;"><br>
                 <span style="font-size: 0.8rem;">価値をつなぐ共同配送インフラ by <a href="https://m2labo.com">M2Labo</a></span>
             </div>
             <div style="font-size: 0.8rem;">&copy; 2026 M2Labo Inc.</div>
