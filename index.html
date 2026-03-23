@@ -4,376 +4,560 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEGURU — 共同配送インフラ SaaS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --green: #2d8a6e;
             --green-light: #e8f5f0;
             --green-dark: #1a5c49;
+            --green-darker: #0f3d30;
             --bg: #faf9f6;
-            --text: #2c2c2c;
-            --text-light: #666;
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --text-muted: #888;
             --white: #ffffff;
+            --border: #e8e8e8;
         }
         body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
             color: var(--text);
-            background: var(--bg);
-            line-height: 1.7;
+            background: var(--white);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
         }
+
+        /* Utility */
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
 
         /* Header */
         header {
-            background: var(--white);
-            border-bottom: 1px solid #e0e0e0;
-            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.8rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
         }
         .header-inner {
-            max-width: 1100px;
-            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .header-logo { height: 40px; }
+        .header-logo { height: 38px; }
+        nav { display: flex; align-items: center; gap: 0.5rem; }
         nav a {
-            color: var(--text);
+            color: var(--text-secondary);
             text-decoration: none;
-            margin-left: 2rem;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
         }
-        nav a:hover { color: var(--green); }
+        nav a:hover { color: var(--green); background: var(--green-light); }
+        .nav-cta {
+            background: var(--green) !important;
+            color: var(--white) !important;
+            font-weight: 600 !important;
+        }
+        .nav-cta:hover { background: var(--green-dark) !important; }
 
         /* Hero */
         .hero {
-            text-align: center;
-            padding: 5rem 2rem 4rem;
-            background: linear-gradient(135deg, var(--green-light) 0%, var(--white) 100%);
+            padding: 8rem 0 6rem;
+            background: linear-gradient(160deg, #f0faf5 0%, var(--white) 40%, #f5f0ff 100%);
+            position: relative;
+            overflow: hidden;
         }
-        .hero img { width: 280px; margin-bottom: 2rem; }
-        .hero h1 {
-            font-size: 2.2rem;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(45,138,110,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-inner {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+        .hero-text { flex: 1; }
+        .hero-visual {
+            flex: 0 0 360px;
+            text-align: center;
+        }
+        .hero-visual img {
+            width: 320px;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .hero-label {
+            display: inline-block;
+            background: var(--green-light);
+            color: var(--green);
+            font-size: 0.8rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--green-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            color: var(--green-darker);
+        }
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--green), #4aba94);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .hero p {
             font-size: 1.15rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto 2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 520px;
         }
-        .cta-btn {
-            display: inline-block;
-            background: var(--green);
-            color: var(--white);
-            padding: 0.9rem 2.5rem;
-            border-radius: 8px;
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
             text-decoration: none;
             font-size: 1rem;
             font-weight: 600;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            border: 2px solid transparent;
         }
-        .cta-btn:hover { background: var(--green-dark); }
+        .btn-primary {
+            background: var(--green);
+            color: var(--white);
+        }
+        .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,138,110,0.3); }
+        .btn-outline {
+            background: transparent;
+            color: var(--green);
+            border-color: var(--green);
+        }
+        .btn-outline:hover { background: var(--green-light); }
 
         /* Sections */
-        section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+        section { padding: 6rem 0; }
+        .section-label {
+            display: inline-block;
+            color: var(--green);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
         section h2 {
-            font-size: 1.7rem;
-            color: var(--green-dark);
-            margin-bottom: 2rem;
-            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--green-darker);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        section .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
         }
 
         /* Problem */
-        .problem {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        .problem-section { background: var(--bg); }
+        .problems {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
         }
-        .problem h3 { color: var(--green); margin-bottom: 1rem; font-size: 1.2rem; }
-        .problem p { color: var(--text-light); }
+        .problem-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+        .problem-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--green-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .problem-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--green-dark); }
+        .problem-card p { color: var(--text-secondary); font-size: 0.95rem; }
 
         /* Features */
-        .features {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
         .feature-card {
             background: var(--white);
-            border-radius: 12px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
             padding: 2rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: all 0.2s;
         }
-        .feature-card h3 {
-            color: var(--green);
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
+        .feature-card:hover {
+            border-color: var(--green);
+            box-shadow: 0 8px 24px rgba(45,138,110,0.1);
+            transform: translateY(-4px);
         }
-        .feature-card p { color: var(--text-light); font-size: 0.95rem; }
         .feature-icon {
-            font-size: 2rem;
+            width: 44px;
+            height: 44px;
+            background: var(--green-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
             margin-bottom: 1rem;
         }
+        .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
+        .feature-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
 
-        /* How it works */
-        .flow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
+        /* Flow */
+        .flow-section { background: var(--green-darker); color: var(--white); }
+        .flow-section h2 { color: var(--white); }
+        .flow-section .subtitle { color: rgba(255,255,255,0.7); }
+        .flow-section .section-label { color: #6bd4a8; }
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
         }
         .flow-step {
-            background: var(--white);
-            border: 2px solid var(--green);
-            border-radius: 12px;
-            padding: 1.5rem 2rem;
             text-align: center;
-            min-width: 180px;
+            padding: 2rem 1rem;
         }
-        .flow-step .num {
-            display: inline-block;
-            background: var(--green);
-            color: var(--white);
-            width: 32px;
-            height: 32px;
+        .flow-num {
+            width: 52px;
+            height: 52px;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
             border-radius: 50%;
-            line-height: 32px;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
         }
-        .flow-arrow { font-size: 1.5rem; color: var(--green); }
+        .flow-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .flow-step p { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
 
         /* Pricing */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
-            margin-top: 2rem;
         }
         .price-card {
             background: var(--white);
-            border-radius: 12px;
-            padding: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
             text-align: center;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            border: 2px solid transparent;
+            transition: all 0.2s;
+            position: relative;
         }
-        .price-card.featured { border-color: var(--green); }
-        .price-card h3 { color: var(--green); margin-bottom: 0.5rem; }
-        .price-card .amount {
-            font-size: 2rem;
+        .price-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .price-card.featured {
+            border-color: var(--green);
+            box-shadow: 0 4px 20px rgba(45,138,110,0.15);
+        }
+        .price-card.featured::before {
+            content: 'おすすめ';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: var(--white);
+            font-size: 0.75rem;
             font-weight: 700;
-            color: var(--text);
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
         }
-        .price-card .amount span { font-size: 0.9rem; font-weight: 400; }
+        .price-card h3 { color: var(--green); font-size: 1rem; margin-bottom: 1rem; }
+        .price-amount { font-size: 2.8rem; font-weight: 900; color: var(--text); }
+        .price-amount span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
         .price-card ul {
             list-style: none;
-            margin-top: 1rem;
+            margin: 1.5rem 0;
             text-align: left;
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
+        .price-card ul li { padding: 0.4rem 0; border-bottom: 1px solid #f0f0f0; }
         .price-card ul li::before { content: "✓ "; color: var(--green); font-weight: 700; }
-        .price-card ul li { margin-bottom: 0.4rem; }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 0;
+        }
+        .cta-section h2 { color: var(--white); font-size: 2rem; margin-bottom: 1rem; }
+        .cta-section p { color: rgba(255,255,255,0.85); margin-bottom: 2rem; font-size: 1.1rem; }
+        .btn-white { background: var(--white); color: var(--green-dark); }
+        .btn-white:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
 
         /* Footer */
         footer {
-            background: var(--green-dark);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+            background: var(--green-darker);
+            color: rgba(255,255,255,0.6);
+            padding: 3rem 0;
         }
-        footer a { color: var(--green-light); }
-
-        /* Demo section */
-        .demo-section {
-            background: var(--green-light);
-            border-radius: 12px;
-            padding: 3rem;
-            text-align: center;
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .demo-section h2 { margin-bottom: 1rem; }
-        .demo-section p { margin-bottom: 2rem; color: var(--text-light); }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+        footer a:hover { color: var(--white); }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 1.6rem; }
-            .hero img { width: 200px; }
-            .flow { flex-direction: column; }
-            .flow-arrow { transform: rotate(90deg); }
+        @media (max-width: 900px) {
+            .hero-inner { flex-direction: column-reverse; text-align: center; }
+            .hero-visual { flex: none; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { margin: 0 auto 2rem; }
+            .hero-actions { justify-content: center; }
+            .problems, .features-grid, .flow-steps, .pricing-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-inner">
+        <div class="container header-inner">
             <img src="logo.png" alt="MEGURU" class="header-logo">
             <nav>
                 <a href="#problem">課題</a>
                 <a href="#features">特徴</a>
                 <a href="#how">仕組み</a>
                 <a href="#pricing">料金</a>
-                <a href="#demo">デモ</a>
+                <a href="demo/" class="nav-cta">デモを見る</a>
             </nav>
         </div>
     </header>
 
     <section class="hero">
-        <img src="logo.png" alt="MEGURU">
-        <h1>地域の共同配送を、<br>ソフトウェアで解決する。</h1>
-        <p>MEGURUは共同配送ネットワークをSaaSとして提供するプラットフォームです。
-        売買は自分でやる。配送だけ乗せたい。そんなニーズに応えます。</p>
-        <a href="#demo" class="cta-btn">デモを見る</a>
+        <div class="container hero-inner">
+            <div class="hero-text">
+                <div class="hero-label">SHARED DELIVERY INFRASTRUCTURE</div>
+                <h1>地域の共同配送を、<br><em>ソフトウェア</em>で解決する。</h1>
+                <p>MEGURUは共同配送ネットワークをSaaSとして提供します。
+                売買は自分でやる。配送だけ乗せたい。そんなニーズに応えるプラットフォームです。</p>
+                <div class="hero-actions">
+                    <a href="demo/" class="btn btn-primary">デモを見る →</a>
+                    <a href="mailto:info@m2labo.com" class="btn btn-outline">お問い合わせ</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="logo.png" alt="MEGURU">
+            </div>
+        </div>
     </section>
 
-    <section id="problem">
-        <h2>物流コストの課題</h2>
-        <div class="problem">
-            <h3>物流2024年問題 — コストは上がり続けている</h3>
-            <p>
-                ドライバー不足、燃料費高騰、小ロット配送の非効率。
-                地域の農家・小売店・飲食店にとって、配送コストは年々重くなっています。
-                「売り買いは自分でやるから、配送だけ安く使わせてほしい」
-                — そんな問い合わせが増えています。
-            </p>
-        </div>
-        <div class="problem">
-            <h3>共同配送の答えは出ている。でも仕組みがない。</h3>
-            <p>
-                やさいバスは共同配送で物流単価を半分にしました。
-                福祉法人や八百屋など「地域で運べる人が運ぶ」モデルです。
-                でもこのノウハウは、やさいバスの中に閉じ込められていました。
-                MEGURUはこれを、誰でも使えるインフラとして開放します。
-            </p>
+    <section class="problem-section" id="problem">
+        <div class="container">
+            <div class="section-label">PROBLEM</div>
+            <h2>物流コストは上がり続けている</h2>
+            <p class="subtitle">ドライバー不足、燃料費高騰。共同配送の答えは出ている。でも仕組みがなかった。</p>
+            <div class="problems">
+                <div class="problem-card">
+                    <div class="problem-icon">📈</div>
+                    <h3>物流2024年問題</h3>
+                    <p>ドライバーの労働時間規制により輸送力が不足。小ロット配送のコストは年々上昇し、地域の農家・小売店・飲食店の経営を圧迫しています。</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🔒</div>
+                    <h3>ノウハウが閉じている</h3>
+                    <p>やさいバスは共同配送で物流単価を半分にしました。でもそのノウハウは一つのプラットフォームに閉じ込められていました。</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">💬</div>
+                    <h3>「配送だけ使いたい」</h3>
+                    <p>売り買いは自分でやるから、配送ネットワークだけ安く使わせてほしい。そんな問い合わせが増えています。</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🌾</div>
+                    <h3>地域ごとに事情が違う</h3>
+                    <p>北海道の広大な農地と静岡の中山間地域では配送の最適解が違います。地域を知る人がルートを決めるべきです。</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="features">
-        <h2>MEGURUの特徴</h2>
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🚛</div>
-                <h3>配送だけを提供</h3>
-                <p>売買プラットフォームは不要。既存の受発注システムからAPIで荷物を投げるだけ。EC-CUBEプラグインも開発予定。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔀</div>
-                <h3>自動経路探索</h3>
-                <p>バス停接続グラフから最適な配送経路を自動計算。積替（Transit）による翌日配送にも対応。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🏢</div>
-                <h3>運営者が主役</h3>
-                <p>M2Laboはソフトウェアだけ提供。車両・ドライバー・ルートは地域を知る運営者が管理します。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <h3>料金は運営者が決める</h3>
-                <p>料金の「枠」だけ提供し、具体的な金額は運営者が設定。エリア別・サイズ別・顧客別に柔軟に対応。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔌</div>
-                <h3>外部連携はプラグイン</h3>
-                <p>ヤマト等の外部配送業者はプラグインとして接続。コアをシンプルに保ちます。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>テナント分離</h3>
-                <p>PostgreSQL RLSによる完全なデータ分離。運営者同士のデータは絶対に混ざりません。</p>
+        <div class="container">
+            <div class="section-label">FEATURES</div>
+            <h2>MEGURUが提供するもの</h2>
+            <p class="subtitle">ソフトウェアだけ提供する。車両もドライバーも運営者が持つ。だから限界費用ゼロに近い。</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚛</div>
+                    <h3>配送だけを提供</h3>
+                    <p>売買プラットフォームは不要。既存の受発注システムからAPIで荷物を投げるだけ。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔀</div>
+                    <h3>自動経路探索</h3>
+                    <p>バス停接続グラフから最適な配送経路を自動計算。積替による翌日配送にも対応。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3>運営者が主役</h3>
+                    <p>ルート・バス停・料金は地域を知る運営者が管理。M2Laboは枠だけ提供します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>柔軟な料金設定</h3>
+                    <p>エリア別・サイズ別・顧客別に自由に設定。期間限定料金にも対応。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>外部連携プラグイン</h3>
+                    <p>ヤマト等の外部配送業者はプラグインとして接続。コアはシンプルに保ちます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>完全テナント分離</h3>
+                    <p>PostgreSQL RLSによるデータ分離。運営者同士のデータは絶対に混ざりません。</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="how">
-        <h2>こう使います</h2>
-        <div class="flow">
-            <div class="flow-step">
-                <div class="num">1</div>
-                <p><strong>運営者登録</strong><br>エリア・ルート・バス停を設定</p>
-            </div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-step">
-                <div class="num">2</div>
-                <p><strong>荷主が依頼</strong><br>出発地・到着地・日付・ケース数だけ</p>
-            </div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-step">
-                <div class="num">3</div>
-                <p><strong>自動配車</strong><br>最適ルートを自動計算・便割当</p>
-            </div>
-            <div class="flow-arrow">→</div>
-            <div class="flow-step">
-                <div class="num">4</div>
-                <p><strong>ドライバー配送</strong><br>アプリで集荷・配達を報告</p>
+    <section class="flow-section" id="how">
+        <div class="container">
+            <div class="section-label">HOW IT WORKS</div>
+            <h2>こう使います</h2>
+            <p class="subtitle">4ステップで共同配送が始まります。</p>
+            <div class="flow-steps">
+                <div class="flow-step">
+                    <div class="flow-num">1</div>
+                    <h3>運営者登録</h3>
+                    <p>エリア・ルート・バス停を管理画面で設定します</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">2</div>
+                    <h3>荷主が依頼</h3>
+                    <p>出発地・到着地・日付・ケース数だけ指定</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">3</div>
+                    <h3>自動配車</h3>
+                    <p>最適ルートを自動計算し、便を割り当てます</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-num">4</div>
+                    <h3>配送・追跡</h3>
+                    <p>ドライバーがアプリで集荷・配達を報告</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="pricing">
-        <h2>料金プラン</h2>
-        <div class="pricing-grid">
-            <div class="price-card">
-                <h3>Starter</h3>
-                <div class="amount">3<span>万円/月</span></div>
-                <ul>
-                    <li>ルート5本まで</li>
-                    <li>バス停20箇所まで</li>
-                    <li>API アクセス</li>
-                </ul>
-            </div>
-            <div class="price-card featured">
-                <h3>Standard</h3>
-                <div class="amount">8<span>万円/月</span></div>
-                <ul>
-                    <li>ルート20本まで</li>
-                    <li>バス停100箇所まで</li>
-                    <li>API + Webhook</li>
-                    <li>料金エンジン</li>
-                </ul>
-            </div>
-            <div class="price-card">
-                <h3>Pro</h3>
-                <div class="amount">20<span>万円/月</span></div>
-                <ul>
-                    <li>ルート無制限</li>
-                    <li>バス停無制限</li>
-                    <li>外部配送プラグイン</li>
-                    <li>専用サポート</li>
-                </ul>
-            </div>
-            <div class="price-card">
-                <h3>Enterprise</h3>
-                <div class="amount">応相談</div>
-                <ul>
-                    <li>カスタム開発</li>
-                    <li>オンプレミス対応</li>
-                    <li>SLA保証</li>
-                </ul>
+        <div class="container">
+            <div class="section-label">PRICING</div>
+            <h2>料金プラン</h2>
+            <p class="subtitle">規模に合わせて選べるプラン。まずはStarterから始められます。</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Starter</h3>
+                    <div class="price-amount">3<span>万円/月</span></div>
+                    <ul>
+                        <li>ルート5本</li>
+                        <li>バス停20箇所</li>
+                        <li>APIアクセス</li>
+                    </ul>
+                </div>
+                <div class="price-card featured">
+                    <h3>Standard</h3>
+                    <div class="price-amount">8<span>万円/月</span></div>
+                    <ul>
+                        <li>ルート20本</li>
+                        <li>バス停100箇所</li>
+                        <li>Webhook通知</li>
+                        <li>料金エンジン</li>
+                    </ul>
+                </div>
+                <div class="price-card">
+                    <h3>Pro</h3>
+                    <div class="price-amount">20<span>万円/月</span></div>
+                    <ul>
+                        <li>ルート無制限</li>
+                        <li>バス停無制限</li>
+                        <li>外部配送プラグイン</li>
+                        <li>専用サポート</li>
+                    </ul>
+                </div>
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="price-amount">応相談</div>
+                    <ul>
+                        <li>カスタム開発</li>
+                        <li>オンプレミス対応</li>
+                        <li>SLA保証</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="demo">
-        <div class="demo-section">
-            <h2>デモ・お問い合わせ</h2>
-            <p>MEGURUの動作をご確認いただけます。<br>導入のご相談もお気軽にどうぞ。</p>
-            <a href="mailto:info@m2labo.com" class="cta-btn">お問い合わせ</a>
+    <section class="cta-section">
+        <div class="container">
+            <h2>共同配送を、始めませんか？</h2>
+            <p>デモ環境で実際の動作をご確認いただけます。導入のご相談もお気軽にどうぞ。</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="demo/" class="btn btn-white">デモを見る →</a>
+                <a href="mailto:info@m2labo.com" class="btn btn-outline" style="border-color: rgba(255,255,255,0.5); color: var(--white);">お問い合わせ</a>
+            </div>
         </div>
     </section>
 
     <footer>
-        <p>MEGURU — 共同配送インフラ SaaS by <a href="https://m2labo.com">M2Labo</a></p>
-        <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.7;">© 2026 M2Labo Inc.</p>
+        <div class="container footer-inner">
+            <div>
+                <img src="logo.png" alt="MEGURU" style="height: 28px; filter: brightness(10); margin-bottom: 0.5rem;"><br>
+                <span style="font-size: 0.85rem;">共同配送インフラ SaaS by <a href="https://m2labo.com">M2Labo</a></span>
+            </div>
+            <div style="font-size: 0.85rem;">&copy; 2026 M2Labo Inc.</div>
+        </div>
     </footer>
 </body>
 </html>
