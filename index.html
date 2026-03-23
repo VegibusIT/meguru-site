@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEGURU — 共同配送インフラ SaaS</title>
+    <title>MEGURU — 価値をつなぐ共同配送インフラ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +16,7 @@
             --bg: #faf9f6;
             --text: #1a1a1a;
             --text-secondary: #555;
-            --text-muted: #888;
+            --text-muted: #999;
             --white: #ffffff;
             --border: #e8e8e8;
         }
@@ -27,9 +27,7 @@
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
-
-        /* Utility */
-        .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+        .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
 
         /* Header */
         header {
@@ -46,8 +44,8 @@
             align-items: center;
             justify-content: space-between;
         }
-        .header-logo { height: 38px; }
-        nav { display: flex; align-items: center; gap: 0.5rem; }
+        .header-logo { height: 36px; }
+        nav { display: flex; align-items: center; gap: 0.3rem; }
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -65,58 +63,20 @@
         }
         .nav-cta:hover { background: var(--green-dark) !important; }
 
-        /* Hero */
+        /* Hero — story-driven */
         .hero {
-            padding: 8rem 0 6rem;
-            background: linear-gradient(160deg, #f0faf5 0%, var(--white) 40%, #f5f0ff 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -200px;
-            right: -200px;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(45,138,110,0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .hero-inner {
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-        }
-        .hero-text { flex: 1; }
-        .hero-visual {
-            flex: 0 0 360px;
+            padding: 7rem 0 5rem;
             text-align: center;
+            background: linear-gradient(180deg, #f0faf5 0%, var(--white) 100%);
+            position: relative;
         }
-        .hero-visual img {
-            width: 320px;
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        .hero-label {
-            display: inline-block;
-            background: var(--green-light);
-            color: var(--green);
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.05em;
-        }
+        .hero-logo { width: 180px; margin-bottom: 2.5rem; }
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 900;
-            line-height: 1.3;
-            margin-bottom: 1.5rem;
-            color: var(--green-darker);
+            line-height: 1.35;
+            margin-bottom: 1.8rem;
+            letter-spacing: -0.02em;
         }
         .hero h1 em {
             font-style: normal;
@@ -125,18 +85,19 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .hero p {
-            font-size: 1.15rem;
+        .hero-sub {
+            font-size: 1.2rem;
             color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            max-width: 520px;
+            max-width: 560px;
+            margin: 0 auto 3rem;
+            line-height: 2;
         }
-        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.9rem 2rem;
+            padding: 1rem 2.2rem;
             border-radius: 10px;
             text-decoration: none;
             font-size: 1rem;
@@ -144,134 +105,172 @@
             transition: all 0.2s;
             border: 2px solid transparent;
         }
-        .btn-primary {
-            background: var(--green);
-            color: var(--white);
-        }
+        .btn-primary { background: var(--green); color: var(--white); }
         .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,138,110,0.3); }
-        .btn-outline {
-            background: transparent;
-            color: var(--green);
-            border-color: var(--green);
-        }
+        .btn-outline { background: transparent; color: var(--green); border-color: var(--green); }
         .btn-outline:hover { background: var(--green-light); }
 
-        /* Sections */
+        /* Number callout */
+        .numbers {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+        .number-item { text-align: center; }
+        .number-item .val {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--green);
+            line-height: 1;
+        }
+        .number-item .val span { font-size: 1.5rem; }
+        .number-item .desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        /* Story section */
         section { padding: 6rem 0; }
         .section-label {
-            display: inline-block;
             color: var(--green);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
         section h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
-            color: var(--green-darker);
-            margin-bottom: 1rem;
-            line-height: 1.3;
+            color: var(--text);
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
         }
-        section .subtitle {
-            font-size: 1.1rem;
+        .subtitle {
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 640px;
             margin-bottom: 3rem;
         }
 
-        /* Problem */
-        .problem-section { background: var(--bg); }
-        .problems {
+        /* Value story */
+        .value-section { background: var(--bg); }
+        .value-story {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            position: relative;
+        }
+        .value-story::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--green-light), var(--green), var(--green-light));
+            z-index: 0;
+        }
+        .value-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--border);
+            margin: 0 0.75rem;
+        }
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .value-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--green-dark);
+        }
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .value-connector {
+            position: absolute;
+            top: 50%;
+            right: -24px;
+            transform: translateY(-50%);
+            color: var(--green);
+            font-size: 1.2rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        /* Voices */
+        .voices {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
         }
-        .problem-card {
+        .voice-card {
             background: var(--white);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            border: 1px solid var(--border);
-            transition: transform 0.2s;
+            position: relative;
         }
-        .problem-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-        .problem-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--green-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+        .voice-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--green-light);
+            position: absolute;
+            top: 0.5rem;
+            left: 1.5rem;
+            line-height: 1;
+            font-family: Georgia, serif;
+        }
+        .voice-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
             margin-bottom: 1.2rem;
+            padding-top: 1rem;
         }
-        .problem-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--green-dark); }
-        .problem-card p { color: var(--text-secondary); font-size: 0.95rem; }
+        .voice-author {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .voice-author strong { color: var(--text-secondary); }
 
-        /* Features */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-        .feature-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.2s;
-        }
-        .feature-card:hover {
-            border-color: var(--green);
-            box-shadow: 0 8px 24px rgba(45,138,110,0.1);
-            transform: translateY(-4px);
-        }
-        .feature-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--green-light);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-        .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
-        .feature-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
-
-        /* Flow */
-        .flow-section { background: var(--green-darker); color: var(--white); }
-        .flow-section h2 { color: var(--white); }
-        .flow-section .subtitle { color: rgba(255,255,255,0.7); }
-        .flow-section .section-label { color: #6bd4a8; }
-        .flow-steps {
+        /* How */
+        .how-section { background: var(--green-darker); color: var(--white); }
+        .how-section h2 { color: var(--white); }
+        .how-section .subtitle { color: rgba(255,255,255,0.7); }
+        .how-section .section-label { color: #6bd4a8; }
+        .how-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            gap: 2rem;
         }
-        .flow-step {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-        .flow-num {
-            width: 52px;
-            height: 52px;
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
+        .how-step { text-align: center; }
+        .how-num {
+            width: 56px;
+            height: 56px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.25);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
-        .flow-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .flow-step p { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+        .how-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .how-step p { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
 
         /* Pricing */
         .pricing-grid {
@@ -283,7 +282,7 @@
             background: var(--white);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 2.5rem 2rem;
+            padding: 2.5rem 1.5rem;
             text-align: center;
             transition: all 0.2s;
             position: relative;
@@ -291,7 +290,7 @@
         .price-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
         .price-card.featured {
             border-color: var(--green);
-            box-shadow: 0 4px 20px rgba(45,138,110,0.15);
+            box-shadow: 0 4px 20px rgba(45,138,110,0.12);
         }
         .price-card.featured::before {
             content: 'おすすめ';
@@ -303,20 +302,20 @@
             color: var(--white);
             font-size: 0.75rem;
             font-weight: 700;
-            padding: 0.25rem 1rem;
+            padding: 0.2rem 1rem;
             border-radius: 20px;
         }
-        .price-card h3 { color: var(--green); font-size: 1rem; margin-bottom: 1rem; }
-        .price-amount { font-size: 2.8rem; font-weight: 900; color: var(--text); }
-        .price-amount span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+        .price-card h3 { color: var(--green); font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+        .price-amount { font-size: 2.5rem; font-weight: 900; }
+        .price-amount span { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
         .price-card ul {
             list-style: none;
             margin: 1.5rem 0;
             text-align: left;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
         }
-        .price-card ul li { padding: 0.4rem 0; border-bottom: 1px solid #f0f0f0; }
+        .price-card ul li { padding: 0.4rem 0; }
         .price-card ul li::before { content: "✓ "; color: var(--green); font-weight: 700; }
 
         /* CTA */
@@ -327,35 +326,34 @@
             padding: 5rem 0;
         }
         .cta-section h2 { color: var(--white); font-size: 2rem; margin-bottom: 1rem; }
-        .cta-section p { color: rgba(255,255,255,0.85); margin-bottom: 2rem; font-size: 1.1rem; }
-        .btn-white { background: var(--white); color: var(--green-dark); }
+        .cta-section p { color: rgba(255,255,255,0.85); margin-bottom: 2.5rem; font-size: 1.1rem; }
+        .btn-white { background: var(--white); color: var(--green-dark); border-color: var(--white); }
         .btn-white:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+        .btn-ghost { border-color: rgba(255,255,255,0.5); color: var(--white); }
+        .btn-ghost:hover { background: rgba(255,255,255,0.1); }
 
         /* Footer */
         footer {
             background: var(--green-darker);
-            color: rgba(255,255,255,0.6);
-            padding: 3rem 0;
+            color: rgba(255,255,255,0.5);
+            padding: 2.5rem 0;
         }
-        .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
-        footer a:hover { color: var(--white); }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+        footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
 
         @media (max-width: 900px) {
-            .hero-inner { flex-direction: column-reverse; text-align: center; }
-            .hero-visual { flex: none; }
-            .hero h1 { font-size: 2rem; }
-            .hero p { margin: 0 auto 2rem; }
-            .hero-actions { justify-content: center; }
-            .problems, .features-grid, .flow-steps, .pricing-grid { grid-template-columns: 1fr; }
-            .features-grid { grid-template-columns: 1fr 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+            .numbers { gap: 2rem; }
+            .number-item .val { font-size: 2rem; }
+            .value-story, .voices, .how-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .value-story::before { display: none; }
+            .value-connector { display: none; }
+            .how-grid { grid-template-columns: 1fr 1fr; }
+            .pricing-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 600px) {
-            .features-grid { grid-template-columns: 1fr; }
+            .how-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .numbers { flex-direction: column; gap: 1.5rem; }
         }
     </style>
 </head>
@@ -364,128 +362,126 @@
         <div class="container header-inner">
             <img src="logo.png" alt="MEGURU" class="header-logo">
             <nav>
-                <a href="#problem">課題</a>
-                <a href="#features">特徴</a>
+                <a href="#value">価値</a>
+                <a href="#voice">声</a>
                 <a href="#how">仕組み</a>
                 <a href="#pricing">料金</a>
-                <a href="demo/" class="nav-cta">デモを見る</a>
+                <a href="demo/" class="nav-cta">デモ</a>
             </nav>
         </div>
     </header>
 
     <section class="hero">
-        <div class="container hero-inner">
-            <div class="hero-text">
-                <div class="hero-label">SHARED DELIVERY INFRASTRUCTURE</div>
-                <h1>地域の共同配送を、<br><em>ソフトウェア</em>で解決する。</h1>
-                <p>MEGURUは共同配送ネットワークをSaaSとして提供します。
-                売買は自分でやる。配送だけ乗せたい。そんなニーズに応えるプラットフォームです。</p>
-                <div class="hero-actions">
-                    <a href="demo/" class="btn btn-primary">デモを見る →</a>
-                    <a href="mailto:info@m2labo.com" class="btn btn-outline">お問い合わせ</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <img src="logo.png" alt="MEGURU">
-            </div>
-        </div>
-    </section>
-
-    <section class="problem-section" id="problem">
         <div class="container">
-            <div class="section-label">PROBLEM</div>
-            <h2>物流コストは上がり続けている</h2>
-            <p class="subtitle">ドライバー不足、燃料費高騰。共同配送の答えは出ている。でも仕組みがなかった。</p>
-            <div class="problems">
-                <div class="problem-card">
-                    <div class="problem-icon">📈</div>
-                    <h3>物流2024年問題</h3>
-                    <p>ドライバーの労働時間規制により輸送力が不足。小ロット配送のコストは年々上昇し、地域の農家・小売店・飲食店の経営を圧迫しています。</p>
+            <img src="logo.png" alt="MEGURU" class="hero-logo">
+            <h1><em>価値をつなぐ。</em><br>共同配送インフラ。</h1>
+            <p class="hero-sub">
+                農家の「届けたい」と店の「仕入れたい」。<br>
+                その間にある配送を、地域のみんなでシェアする。<br>
+                MEGURUは、そのための仕組みです。
+            </p>
+            <div class="hero-actions">
+                <a href="demo/" class="btn btn-primary">デモを見る →</a>
+                <a href="mailto:info@m2labo.com" class="btn btn-outline">お問い合わせ</a>
+            </div>
+            <div class="numbers">
+                <div class="number-item">
+                    <div class="val">50<span>%</span></div>
+                    <div class="desc">物流単価の削減実績</div>
                 </div>
-                <div class="problem-card">
-                    <div class="problem-icon">🔒</div>
-                    <h3>ノウハウが閉じている</h3>
-                    <p>やさいバスは共同配送で物流単価を半分にしました。でもそのノウハウは一つのプラットフォームに閉じ込められていました。</p>
+                <div class="number-item">
+                    <div class="val">7<span>年</span></div>
+                    <div class="desc">やさいバスの運用実績</div>
                 </div>
-                <div class="problem-card">
-                    <div class="problem-icon">💬</div>
-                    <h3>「配送だけ使いたい」</h3>
-                    <p>売り買いは自分でやるから、配送ネットワークだけ安く使わせてほしい。そんな問い合わせが増えています。</p>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon">🌾</div>
-                    <h3>地域ごとに事情が違う</h3>
-                    <p>北海道の広大な農地と静岡の中山間地域では配送の最適解が違います。地域を知る人がルートを決めるべきです。</p>
+                <div class="number-item">
+                    <div class="val">0<span>台</span></div>
+                    <div class="desc">M2Laboが持つ車両</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="features">
+    <section class="value-section" id="value">
         <div class="container">
-            <div class="section-label">FEATURES</div>
-            <h2>MEGURUが提供するもの</h2>
-            <p class="subtitle">ソフトウェアだけ提供する。車両もドライバーも運営者が持つ。だから限界費用ゼロに近い。</p>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🚛</div>
-                    <h3>配送だけを提供</h3>
-                    <p>売買プラットフォームは不要。既存の受発注システムからAPIで荷物を投げるだけ。</p>
+            <div class="section-label">VALUE CHAIN</div>
+            <h2>MEGURUがつなぐ価値</h2>
+            <p class="subtitle">
+                売買は既存の仕組みでいい。配送だけを共有する。
+                だから導入のハードルが低く、すぐに使える。
+            </p>
+            <div class="value-story">
+                <div class="value-card">
+                    <div class="value-icon">🌾</div>
+                    <h3>つくる人</h3>
+                    <p>農家・生産者が収穫したものを、鮮度を落とさずに届けたい。新しい販路にも出荷したい。</p>
+                    <div class="value-connector">→</div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔀</div>
-                    <h3>自動経路探索</h3>
-                    <p>バス停接続グラフから最適な配送経路を自動計算。積替による翌日配送にも対応。</p>
+                <div class="value-card">
+                    <div class="value-icon">🚛</div>
+                    <h3>はこぶ人</h3>
+                    <p>福祉法人も八百屋もドライバーになれる。地域で運べる人が、空いた時間で運ぶ。</p>
+                    <div class="value-connector">→</div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏢</div>
-                    <h3>運営者が主役</h3>
-                    <p>ルート・バス停・料金は地域を知る運営者が管理。M2Laboは枠だけ提供します。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>柔軟な料金設定</h3>
-                    <p>エリア別・サイズ別・顧客別に自由に設定。期間限定料金にも対応。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔌</div>
-                    <h3>外部連携プラグイン</h3>
-                    <p>ヤマト等の外部配送業者はプラグインとして接続。コアはシンプルに保ちます。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>完全テナント分離</h3>
-                    <p>PostgreSQL RLSによるデータ分離。運営者同士のデータは絶対に混ざりません。</p>
+                <div class="value-card">
+                    <div class="value-icon">🏪</div>
+                    <h3>届ける先</h3>
+                    <p>小売・飲食・加工。鮮度の良い商品が安く届く。売れる棚をつくることができる。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="flow-section" id="how">
+    <section id="voice">
+        <div class="container">
+            <div class="section-label">VOICES</div>
+            <h2>こんな声から生まれました</h2>
+            <p class="subtitle">MEGURUは現場の声から設計されています。</p>
+            <div class="voices">
+                <div class="voice-card">
+                    <p class="voice-text">売り買いは自分でやるから、<strong>配送だけ安く使わせてほしい。</strong>自社便を出すほどの量はないけど、共同配送なら乗せられる。</p>
+                    <p class="voice-author"><strong>茨城県 有機農家</strong></p>
+                </div>
+                <div class="voice-card">
+                    <p class="voice-text">北海道は広い。自分たちだけで全域をカバーするのは無理。<strong>共同配送のネットワークに乗せたい。</strong></p>
+                    <p class="voice-author"><strong>北海道 食品流通企業</strong></p>
+                </div>
+                <div class="voice-card">
+                    <p class="voice-text">うちはECで販売している。注文管理は自分でやるけど、<strong>ラストワンマイルだけ誰かに任せたい。</strong></p>
+                    <p class="voice-author"><strong>静岡県 農産物EC事業者</strong></p>
+                </div>
+                <div class="voice-card">
+                    <p class="voice-text">やさいバスで<strong>物流単価が半分になった。</strong>このモデルを他の地域でもやりたいけど、仕組みがなかった。</p>
+                    <p class="voice-author"><strong>やさいバス 運営</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-section" id="how">
         <div class="container">
             <div class="section-label">HOW IT WORKS</div>
-            <h2>こう使います</h2>
-            <p class="subtitle">4ステップで共同配送が始まります。</p>
-            <div class="flow-steps">
-                <div class="flow-step">
-                    <div class="flow-num">1</div>
-                    <h3>運営者登録</h3>
-                    <p>エリア・ルート・バス停を管理画面で設定します</p>
+            <h2>仕組みはシンプル</h2>
+            <p class="subtitle">M2Laboはソフトウェアだけ持つ。車両もドライバーも、地域を知る運営者が管理する。</p>
+            <div class="how-grid">
+                <div class="how-step">
+                    <div class="how-num">1</div>
+                    <h3>運営者が設定</h3>
+                    <p>地域のルート・バス停・ドライバーを登録。地域の事情は運営者が一番知っている。</p>
                 </div>
-                <div class="flow-step">
-                    <div class="flow-num">2</div>
-                    <h3>荷主が依頼</h3>
-                    <p>出発地・到着地・日付・ケース数だけ指定</p>
+                <div class="how-step">
+                    <div class="how-num">2</div>
+                    <h3>荷主がAPIで依頼</h3>
+                    <p>出発地・到着地・日付・ケース数だけ。既存の受発注システムからそのまま連携。</p>
                 </div>
-                <div class="flow-step">
-                    <div class="flow-num">3</div>
-                    <h3>自動配車</h3>
-                    <p>最適ルートを自動計算し、便を割り当てます</p>
+                <div class="how-step">
+                    <div class="how-num">3</div>
+                    <h3>自動で経路決定</h3>
+                    <p>Dispatch Engineが最適な便を自動計算。積替による翌日配送にも対応。</p>
                 </div>
-                <div class="flow-step">
-                    <div class="flow-num">4</div>
-                    <h3>配送・追跡</h3>
-                    <p>ドライバーがアプリで集荷・配達を報告</p>
+                <div class="how-step">
+                    <div class="how-num">4</div>
+                    <h3>地域の人が運ぶ</h3>
+                    <p>ドライバーがアプリで集荷・配達を報告。荷主にはWebhookで通知。</p>
                 </div>
             </div>
         </div>
@@ -494,8 +490,8 @@
     <section id="pricing">
         <div class="container">
             <div class="section-label">PRICING</div>
-            <h2>料金プラン</h2>
-            <p class="subtitle">規模に合わせて選べるプラン。まずはStarterから始められます。</p>
+            <h2>まずは小さく始められます</h2>
+            <p class="subtitle">料金の「枠」だけ提供。具体的な配送料は運営者が自由に決められます。</p>
             <div class="pricing-grid">
                 <div class="price-card">
                     <h3>Starter</h3>
@@ -541,11 +537,11 @@
 
     <section class="cta-section">
         <div class="container">
-            <h2>共同配送を、始めませんか？</h2>
-            <p>デモ環境で実際の動作をご確認いただけます。導入のご相談もお気軽にどうぞ。</p>
+            <h2>あなたの地域でも、価値をつなぎませんか？</h2>
+            <p>デモ環境で動作を確認できます。導入のご相談もお気軽にどうぞ。</p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="demo/" class="btn btn-white">デモを見る →</a>
-                <a href="mailto:info@m2labo.com" class="btn btn-outline" style="border-color: rgba(255,255,255,0.5); color: var(--white);">お問い合わせ</a>
+                <a href="mailto:info@m2labo.com" class="btn btn-ghost">お問い合わせ</a>
             </div>
         </div>
     </section>
@@ -553,10 +549,10 @@
     <footer>
         <div class="container footer-inner">
             <div>
-                <img src="logo.png" alt="MEGURU" style="height: 28px; filter: brightness(10); margin-bottom: 0.5rem;"><br>
-                <span style="font-size: 0.85rem;">共同配送インフラ SaaS by <a href="https://m2labo.com">M2Labo</a></span>
+                <img src="logo.png" alt="MEGURU" style="height: 26px; filter: brightness(10); margin-bottom: 0.3rem;"><br>
+                <span style="font-size: 0.8rem;">価値をつなぐ共同配送インフラ by <a href="https://m2labo.com">M2Labo</a></span>
             </div>
-            <div style="font-size: 0.85rem;">&copy; 2026 M2Labo Inc.</div>
+            <div style="font-size: 0.8rem;">&copy; 2026 M2Labo Inc.</div>
         </div>
     </footer>
 </body>
