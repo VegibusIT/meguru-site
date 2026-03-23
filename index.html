@@ -33,7 +33,7 @@
             --green-light: #e8f5f0;
             --green-dark: #1a5c49;
             --green-darker: #0f3d30;
-            --bg: #f2f0e4;
+            --bg: #f7f6f2;
             --text: #1a1a1a;
             --text-secondary: #555;
             --text-muted: #999;
@@ -64,7 +64,7 @@
             align-items: center;
             justify-content: space-between;
         }
-        .header-logo { height: 36px; }
+        .header-logo { height: 44px; }
         nav { display: flex; align-items: center; gap: 0.3rem; }
         nav a {
             color: var(--text-secondary);
@@ -380,12 +380,13 @@
 <body>
     <header>
         <div class="container header-inner">
-            <img src="logo-symbol.png" alt="MEGURU" class="header-logo">
+            <img src="logo-header.png" alt="MEGURU" class="header-logo">
             <nav>
                 <a href="#value">価値</a>
                 <a href="#voice">声</a>
                 <a href="#how">仕組み</a>
                 <a href="#pricing">料金</a>
+                <a href="#contact">お問い合わせ</a>
                 <a href="demo/" class="nav-cta">デモ</a>
             </nav>
         </div>
@@ -555,13 +556,37 @@
         </div>
     </section>
 
+    <section id="contact" style="padding: 5rem 0; background: var(--bg);">
+        <div class="container" style="text-align: center;">
+            <div class="section-label">CONTACT</div>
+            <h2>お問い合わせ</h2>
+            <p class="subtitle" style="margin: 0 auto 2rem;">導入のご相談、デモのご依頼、お気軽にどうぞ。</p>
+            <div style="max-width: 640px; margin: 0 auto; background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+                <iframe
+                    id="contact-form"
+                    src=""
+                    width="100%"
+                    height="600"
+                    frameborder="0"
+                    marginheight="0"
+                    marginwidth="0"
+                    style="display: none;"
+                >読み込んでいます…</iframe>
+                <div id="form-placeholder" style="padding: 3rem 2rem; color: var(--text-muted);">
+                    <p style="font-size: 1.1rem; margin-bottom: 1rem;">📝 お問い合わせフォーム準備中</p>
+                    <p>メールでのお問い合わせ：<a href="mailto:info@m2labo.com" style="color: var(--green); font-weight: 600;">info@m2labo.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="cta-section">
         <div class="container">
             <h2>あなたの地域でも、価値をつなぎませんか？</h2>
             <p>デモ環境で動作を確認できます。導入のご相談もお気軽にどうぞ。</p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="demo/" class="btn btn-white">デモを見る →</a>
-                <a href="mailto:info@m2labo.com" class="btn btn-ghost">お問い合わせ</a>
+                <a href="#contact" class="btn btn-ghost">お問い合わせ</a>
             </div>
         </div>
     </section>
