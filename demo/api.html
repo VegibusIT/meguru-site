@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGURU API Reference</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --green: #2d8a6e;
+            --green-light: #e8f5f0;
+            --green-dark: #1a5c49;
+            --bg: #f8f8f6;
+            --white: #fff;
+            --text: #1a1a1a;
+            --text-light: #555;
+            --border: #e0e0e0;
+            --code-bg: #1e1e2e;
+        }
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+        }
+        .top-bar {
+            background: var(--green-dark);
+            color: white;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .top-bar img { height: 28px; }
+        .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; }
+        .top-bar a:hover { color: white; }
+        .layout { display: flex; max-width: 1200px; margin: 0 auto; }
+        .sidebar {
+            width: 240px;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            background: var(--white);
+        }
+        .sidebar h3 { font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.5rem; }
+        .sidebar a {
+            display: block;
+            padding: 0.3rem 0.8rem;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-radius: 4px;
+        }
+        .sidebar a:hover { background: var(--green-light); color: var(--green); }
+        .content { flex: 1; padding: 2rem 3rem; max-width: 800px; }
+        h1 { font-size: 2rem; margin-bottom: 0.5rem; color: var(--green-dark); }
+        h2 { font-size: 1.5rem; margin: 3rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--green-dark); }
+        h3 { font-size: 1.1rem; margin: 2rem 0 0.8rem; }
+        p { margin-bottom: 1rem; color: var(--text-light); }
+        .method {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .method-get { background: #e8f4fd; color: #2980b9; }
+        .method-post { background: #e8f5f0; color: #2d8a6e; }
+        .method-patch { background: #fef3e2; color: #f39c12; }
+        .method-delete { background: #fde8e8; color: #e74c3c; }
+        .endpoint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .endpoint-block {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+        }
+        .endpoint-block p { margin: 0.5rem 0 0; font-size: 0.9rem; }
+        pre {
+            background: var(--code-bg);
+            color: #cdd6f4;
+            padding: 1.2rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+        .key { color: #89b4fa; }
+        .str { color: #a6e3a1; }
+        .num { color: #fab387; }
+        .comment { color: #6c7086; }
+        code {
+            background: #eee;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { padding: 0.5rem 1rem; text-align: left; font-size: 0.85rem; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-light); font-weight: 600; }
+        .badge { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 10px; font-size: 0.75rem; font-weight: 600; }
+        .required { background: #fde8e8; color: #e74c3c; }
+        .optional { background: #eee; color: #888; }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div style="display:flex;align-items:center;gap:1rem;">
+            <img src="../logo-header.png" alt="MEGURU">
+            <span style="opacity:0.6; font-size:0.85rem;">API Reference v0.1</span>
+        </div>
+        <div>
+            <a href="./">Dashboard</a>
+            &nbsp;&nbsp;
+            <a href="../">← サイトへ戻る</a>
+        </div>
+    </div>
+    <div class="layout">
+        <nav class="sidebar">
+            <h3>Getting Started</h3>
+            <a href="#overview">概要</a>
+            <a href="#auth">認証</a>
+            <a href="#base-url">Base URL</a>
+            <h3>Tenant</h3>
+            <a href="#create-tenant">テナント作成</a>
+            <a href="#list-tenants">テナント一覧</a>
+            <h3>Stop</h3>
+            <a href="#create-stop">バス停作成</a>
+            <a href="#list-stops">バス停一覧</a>
+            <h3>Route</h3>
+            <a href="#create-route">ルート作成</a>
+            <a href="#list-routes">ルート一覧</a>
+            <h3>Connection</h3>
+            <a href="#create-connection">接続作成</a>
+            <a href="#bulk-connections">一括インポート</a>
+            <h3>Shipment</h3>
+            <a href="#create-shipment">配送依頼</a>
+            <a href="#get-shipment">配送追跡</a>
+            <a href="#cancel-shipment">キャンセル</a>
+            <h3>Driver</h3>
+            <a href="#driver-today">今日のスケジュール</a>
+        </nav>
+        <div class="content">
+            <h1>MEGURU API Reference</h1>
+            <p>共同配送インフラ MEGURU の REST API ドキュメントです。</p>
+
+            <h2 id="overview">概要</h2>
+            <p>MEGURUは荷主からの配送依頼を受け、Dispatch Engineが自動で最適経路を計算し、配送レグを生成します。荷主は出発地・到着地・日付・ケース数だけ指定すれば、ルートの選択は不要です。</p>
+
+            <h2 id="auth">認証</h2>
+            <h3>運営者・ドライバー（JWT）</h3>
+<pre><span class="comment">// ログインしてトークンを取得</span>
+POST /auth/login
+{
+  <span class="key">"tenant_id"</span>: <span class="str">"uuid"</span>,
+  <span class="key">"role"</span>: <span class="str">"admin"</span>
+}
+
+<span class="comment">// 以降のリクエストにヘッダーを付与</span>
+Authorization: Bearer eyJhbGci...</pre>
+
+            <h3>荷主（APIキー）</h3>
+<pre><span class="comment">// テナント管理者が発行したAPIキーをヘッダーに付与</span>
+X-API-Key: mk_live_xxxxxxxxxxxx</pre>
+
+            <h2 id="base-url">Base URL</h2>
+<pre>https://meguru-api.fly.dev</pre>
+
+            <h2 id="create-tenant">テナント作成</h2>
+            <div class="endpoint-block">
+                <span class="method method-post">POST</span>
+                <span class="endpoint">/admin/tenants</span>
+                <p>新しいエリア運営者を登録します。</p>
+            </div>
+<pre><span class="comment">// Request</span>
+{
+  <span class="key">"name"</span>: <span class="str">"やさいバス静岡"</span>,
+  <span class="key">"plan"</span>: <span class="str">"standard"</span>
+}
+
+<span class="comment">// Response: 201 Created</span>
+{
+  <span class="key">"id"</span>: <span class="str">"202c55e5-8cce-468d-866c-bba8aa8f788b"</span>,
+  <span class="key">"name"</span>: <span class="str">"やさいバス静岡"</span>,
+  <span class="key">"plan"</span>: <span class="str">"standard"</span>,
+  <span class="key">"active"</span>: <span class="num">true</span>,
+  <span class="key">"created_at"</span>: <span class="str">"2026-03-23T04:12:49Z"</span>
+}</pre>
+            <table>
+                <tr><th>Field</th><th>Type</th><th></th><th>Description</th></tr>
+                <tr><td><code>name</code></td><td>string</td><td><span class="badge required">必須</span></td><td>テナント名</td></tr>
+                <tr><td><code>plan</code></td><td>string</td><td><span class="badge required">必須</span></td><td>starter / standard / pro / enterprise</td></tr>
+            </table>
+
+            <h2 id="list-tenants">テナント一覧</h2>
+            <div class="endpoint-block">
+                <span class="method method-get">GET</span>
+                <span class="endpoint">/admin/tenants</span>
+            </div>
+
+            <h2 id="create-stop">バス停作成</h2>
+            <div class="endpoint-block">
+                <span class="method method-post">POST</span>
+                <span class="endpoint">/stops?tenant_id={uuid}</span>
+                <p>バス停（集荷・配達・積替ポイント）を登録します。</p>
+            </div>
+<pre>{
+  <span class="key">"name"</span>: <span class="str">"長沼町農場"</span>,
+  <span class="key">"address"</span>: <span class="str">"北海道長沼町"</span>,
+  <span class="key">"location"</span>: { <span class="key">"latitude"</span>: <span class="num">43.0</span>, <span class="key">"longitude"</span>: <span class="num">141.7</span> },
+  <span class="key">"stop_type"</span>: <span class="str">"collection"</span>,
+  <span class="key">"capacity_cases"</span>: <span class="num">100</span>
+}</pre>
+            <table>
+                <tr><th>stop_type</th><th>説明</th></tr>
+                <tr><td><code>collection</code></td><td>集荷専用（農家など）</td></tr>
+                <tr><td><code>delivery</code></td><td>配達専用（飲食店など）</td></tr>
+                <tr><td><code>transit</code></td><td>積替拠点（中継バス停）</td></tr>
+                <tr><td><code>both</code></td><td>集荷＋配達両用</td></tr>
+                <tr><td><code>garage</code></td><td>車庫（ルート起終点）</td></tr>
+            </table>
+
+            <h2 id="list-stops">バス停一覧</h2>
+            <div class="endpoint-block">
+                <span class="method method-get">GET</span>
+                <span class="endpoint">/stops?tenant_id={uuid}</span>
+            </div>
+
+            <h2 id="create-route">ルート作成</h2>
+            <div class="endpoint-block">
+                <span class="method method-post">POST</span>
+                <span class="endpoint">/routes?tenant_id={uuid}</span>
+                <p>便（ルート）を登録します。運行曜日・時刻・温度帯・積載上限を設定。</p>
+            </div>
+<pre>{
+  <span class="key">"name"</span>: <span class="str">"ルートA（農場→マオイ）"</span>,
+  <span class="key">"schedule"</span>: {
+    <span class="key">"days_of_week"</span>: [<span class="str">"monday"</span>, <span class="str">"wednesday"</span>, <span class="str">"friday"</span>],
+    <span class="key">"departure_time"</span>: <span class="str">"08:00:00"</span>
+  },
+  <span class="key">"stops"</span>: [
+    { <span class="key">"stop_id"</span>: <span class="str">"uuid-farm"</span>, <span class="key">"sequence"</span>: <span class="num">1</span> },
+    { <span class="key">"stop_id"</span>: <span class="str">"uuid-transit"</span>, <span class="key">"sequence"</span>: <span class="num">2</span> }
+  ],
+  <span class="key">"temperature"</span>: <span class="str">"ambient"</span>,
+  <span class="key">"capacity_cases"</span>: <span class="num">50</span>
+}</pre>
+
+            <h2 id="list-routes">ルート一覧</h2>
+            <div class="endpoint-block">
+                <span class="method method-get">GET</span>
+                <span class="endpoint">/routes?tenant_id={uuid}</span>
+            </div>
+
+            <h2 id="create-connection">バス停接続の定義</h2>
+            <div class="endpoint-block">
+                <span class="method method-post">POST</span>
+                <span class="endpoint">/connections?tenant_id={uuid}</span>
+                <p>バス停間の接続を定義します。Dispatch Engineはこのグラフから経路を探索します。</p>
+            </div>
+<pre>{
+  <span class="key">"from_stop_id"</span>: <span class="str">"uuid-farm"</span>,
+  <span class="key">"to_stop_id"</span>: <span class="str">"uuid-transit"</span>,
+  <span class="key">"days_of_week"</span>: [<span class="str">"monday"</span>, <span class="str">"wednesday"</span>, <span class="str">"friday"</span>],
+  <span class="key">"transit_days"</span>: <span class="num">0</span>,          <span class="comment">// 0=当日, 1=翌日</span>
+  <span class="key">"active_from"</span>: <span class="str">"2026-01-01"</span>,
+  <span class="key">"active_until"</span>: <span class="num">null</span>         <span class="comment">// null=無期限</span>
+}</pre>
+
+            <h2 id="bulk-connections">一括インポート</h2>
+            <div class="endpoint-block">
+                <span class="method method-post">POST</span>
+                <span class="endpoint">/connections/bulk?tenant_id={uuid}</span>
+                <p>複数の接続を一括登録します。</p>
+            </div>
+<pre>{
+  <span class="key">"connections"</span>: [
+    { <span class="key">"from_stop_id"</span>: <span class="str">"..."</span>, <span class="key">"to_stop_id"</span>: <span class="str">"..."</span>, ... },
+    { <span class="key">"from_stop_id"</span>: <span class="str">"..."</span>, <span class="key">"to_stop_id"</span>: <span class="str">"..."</span>, ... }
+  ]
+}</pre>
+
+            <h2 id="create-shipment">配送依頼（最重要API）</h2>
+            <div class="endpoint-block">
+                <span class="method method-post">POST</span>
+                <span class="endpoint">/shipments?tenant_id={uuid}</span>
+                <p>荷主が配送を依頼します。<strong>ルート指定は不要</strong>。Dispatch Engineが自動で最適経路を計算し、ShipmentLegを生成します。</p>
+            </div>
+<pre><span class="comment">// Request — 出発地・到着地・日付・ケース数だけ</span>
+{
+  <span class="key">"external_order_id"</span>: <span class="str">"YB-12345"</span>,    <span class="comment">// 任意: 自社の注文ID</span>
+  <span class="key">"origin_stop_id"</span>: <span class="str">"693ec6db-..."</span>,
+  <span class="key">"destination_stop_id"</span>: <span class="str">"25c2304e-..."</span>,
+  <span class="key">"scheduled_date"</span>: <span class="str">"2026-04-06"</span>,
+  <span class="key">"container"</span>: { <span class="key">"cases"</span>: <span class="num">3</span>, <span class="key">"size"</span>: <span class="str">"medium"</span> },
+  <span class="key">"temperature"</span>: <span class="str">"ambient"</span>
+}
+
+<span class="comment">// Response: 201 Created</span>
+<span class="comment">// Dispatch Engineが自動で2レグに分割（積替経由・翌日配送）</span>
+{
+  <span class="key">"id"</span>: <span class="str">"784c4853-..."</span>,
+  <span class="key">"status"</span>: <span class="str">"confirmed"</span>,
+  <span class="key">"legs"</span>: [
+    {
+      <span class="key">"leg_order"</span>: <span class="num">1</span>,
+      <span class="key">"route_id"</span>: <span class="str">"df7b5a7e-..."</span>,
+      <span class="key">"from_stop_id"</span>: <span class="str">"693ec6db-..."</span>,  <span class="comment">// 長沼町農場</span>
+      <span class="key">"to_stop_id"</span>: <span class="str">"19e2dfa7-..."</span>,    <span class="comment">// 道の駅マオイ（積替）</span>
+      <span class="key">"scheduled_date"</span>: <span class="str">"2026-04-06"</span>,   <span class="comment">// 月曜</span>
+      <span class="key">"status"</span>: <span class="str">"pending"</span>
+    },
+    {
+      <span class="key">"leg_order"</span>: <span class="num">2</span>,
+      <span class="key">"route_id"</span>: <span class="str">"387ab540-..."</span>,
+      <span class="key">"from_stop_id"</span>: <span class="str">"19e2dfa7-..."</span>,  <span class="comment">// 道の駅マオイ</span>
+      <span class="key">"to_stop_id"</span>: <span class="str">"25c2304e-..."</span>,    <span class="comment">// 大丸札幌店</span>
+      <span class="key">"scheduled_date"</span>: <span class="str">"2026-04-07"</span>,   <span class="comment">// 火曜（翌日）</span>
+      <span class="key">"status"</span>: <span class="str">"pending"</span>
+    }
+  ]
+}</pre>
+
+            <h2 id="get-shipment">配送追跡</h2>
+            <div class="endpoint-block">
+                <span class="method method-get">GET</span>
+                <span class="endpoint">/shipments/{id}</span>
+                <p>配送の現在のステータスとレグ情報を取得します。</p>
+            </div>
+            <table>
+                <tr><th>Status</th><th>説明</th></tr>
+                <tr><td><code>pending</code></td><td>受付済み（経路未確定）</td></tr>
+                <tr><td><code>confirmed</code></td><td>経路確定・便アサイン済み</td></tr>
+                <tr><td><code>picked_up</code></td><td>集荷済み</td></tr>
+                <tr><td><code>in_transit</code></td><td>輸送中</td></tr>
+                <tr><td><code>delivered</code></td><td>配達完了</td></tr>
+                <tr><td><code>cancelled</code></td><td>キャンセル済み</td></tr>
+                <tr><td><code>failed</code></td><td>配送失敗</td></tr>
+            </table>
+
+            <h2 id="cancel-shipment">キャンセル</h2>
+            <div class="endpoint-block">
+                <span class="method method-patch">PATCH</span>
+                <span class="endpoint">/shipments/{id}/cancel</span>
+                <p>配送をキャンセルします。集荷済み以降はキャンセル不可。</p>
+            </div>
+<pre><span class="comment">// カスケード処理:</span>
+<span class="comment">// 1. Shipment.status → cancelled</span>
+<span class="comment">// 2. 全ShipmentLeg.status → cancelled</span>
+<span class="comment">// 3. 積載枠を解放</span></pre>
+
+            <h2 id="driver-today">ドライバー: 今日のスケジュール</h2>
+            <div class="endpoint-block">
+                <span class="method method-get">GET</span>
+                <span class="endpoint">/driver/dispatches/today</span>
+            </div>
+            <div class="endpoint-block">
+                <span class="method method-get">GET</span>
+                <span class="endpoint">/driver/dispatches/{id}/stops/{stop_id}/shipments</span>
+                <p>バス停での荷物一覧</p>
+            </div>
+            <div class="endpoint-block">
+                <span class="method method-patch">PATCH</span>
+                <span class="endpoint">/driver/dispatches/{id}/stops/{stop_id}/shipments/{sid}</span>
+                <p>個別荷物の数量報告</p>
+            </div>
+            <div class="endpoint-block">
+                <span class="method method-post">POST</span>
+                <span class="endpoint">/driver/dispatches/{id}/stops/{stop_id}/submit</span>
+                <p>バス停での報告を確定</p>
+            </div>
+
+            <div style="margin-top: 4rem; padding: 2rem; background: var(--green-light); border-radius: 12px; text-align: center;">
+                <p style="color: var(--green-dark); font-weight: 600;">MEGURU API v0.1 — M2Labo 2026</p>
+                <p><a href="mailto:contact@m2-labo.jp" style="color: var(--green);">contact@m2-labo.jp</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
