@@ -616,24 +616,54 @@ Response: 201 Created
             addStops(stops);
             addStops(hokkaidoStops);
 
-            // Routes (lines)
+            // Road-based routing via OSRM (free, no API key)
+            async function drawRoute(waypoints, color, name, weight = 4, opacity = 0.8) {
+                const coords = waypoints.map(p => p[1] + ',' + p[0]).join(';');
+                const url = `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`;
+                try {
+                    const res = await fetch(url);
+                    const data = await res.json();
+                    if (data.routes && data.routes[0]) {
+                        const geojson = data.routes[0].geometry;
+                        const latlngs = geojson.coordinates.map(c => [c[1], c[0]]);
+                        // Route outline (shadow)
+                        L.polyline(latlngs, {
+                            color: '#000', weight: weight + 3, opacity: 0.1
+                        }).addTo(map);
+                        // Route line
+                        L.polyline(latlngs, {
+                            color, weight, opacity,
+                            lineCap: 'round', lineJoin: 'round'
+                        }).addTo(map).bindPopup(`<strong>${name}</strong>`);
+                    }
+                } catch(e) {
+                    // Fallback to straight line
+                    L.polyline(waypoints, { color, weight: 3, opacity: 0.6, dashArray: '8 4' })
+                        .addTo(map).bindPopup(`<strong>${name}</strong>`);
+                }
+            }
+
+            // Draw routes on actual roads
             // Route A: 牧之原 → 中央市場 → 藤枝
-            L.polyline([
-                [34.74, 138.22], [34.73, 138.23], [34.87, 138.26]
-            ], { color: '#2d8a6e', weight: 3, opacity: 0.7, dashArray: '8 4' }).addTo(map)
-                .bindPopup('<strong>ルートA</strong> 牧之原→中央市場→藤枝');
-
+            drawRoute(
+                [[34.74, 138.22], [34.73, 138.23], [34.87, 138.26]],
+                '#2d8a6e', 'ルートA 牧之原→中央市場→藤枝'
+            );
             // Route C: 掛川 → 浜松
-            L.polyline([
-                [34.77, 138.01], [34.71, 137.73]
-            ], { color: '#3498db', weight: 3, opacity: 0.7, dashArray: '8 4' }).addTo(map)
-                .bindPopup('<strong>ルートC</strong> 掛川→浜松');
-
-            // Route D: 島田 → 静岡
-            L.polyline([
-                [34.84, 138.18], [34.97, 138.39]
-            ], { color: '#999', weight: 2, opacity: 0.4, dashArray: '4 6' }).addTo(map)
-                .bindPopup('<strong>ルートD</strong> 島田→静岡（休止中）');
+            drawRoute(
+                [[34.77, 138.01], [34.71, 137.73]],
+                '#3498db', 'ルートC 掛川→浜松'
+            );
+            // Route D: 島田 → 静岡 (inactive)
+            drawRoute(
+                [[34.84, 138.18], [34.97, 138.39]],
+                '#999', 'ルートD 島田→静岡（休止中）', 2, 0.4
+            );
+            // Hokkaido: 長沼 → マオイ → 札幌
+            drawRoute(
+                [[43.01, 141.70], [43.01, 141.71], [43.07, 141.35]],
+                '#2d8a6e', 'ルートA+B 長沼→マオイ→札幌', 4, 0.7
+            );
 
             // Trucks (simulated current positions)
             L.marker([34.735, 138.225], { icon: truckIcon })
