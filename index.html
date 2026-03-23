@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEGURU — 共同配送インフラ SaaS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --green: #2d8a6e;
+            --green-light: #e8f5f0;
+            --green-dark: #1a5c49;
+            --bg: #faf9f6;
+            --text: #2c2c2c;
+            --text-light: #666;
+            --white: #ffffff;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-logo { height: 40px; }
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.95rem;
+        }
+        nav a:hover { color: var(--green); }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--green-light) 0%, var(--white) 100%);
+        }
+        .hero img { width: 280px; margin-bottom: 2rem; }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--green-dark);
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: var(--green);
+            color: var(--white);
+            padding: 0.9rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .cta-btn:hover { background: var(--green-dark); }
+
+        /* Sections */
+        section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+        section h2 {
+            font-size: 1.7rem;
+            color: var(--green-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Problem */
+        .problem {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .problem h3 { color: var(--green); margin-bottom: 1rem; font-size: 1.2rem; }
+        .problem p { color: var(--text-light); }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .feature-card h3 {
+            color: var(--green);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        .feature-card p { color: var(--text-light); font-size: 0.95rem; }
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* How it works */
+        .flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .flow-step {
+            background: var(--white);
+            border: 2px solid var(--green);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            min-width: 180px;
+        }
+        .flow-step .num {
+            display: inline-block;
+            background: var(--green);
+            color: var(--white);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            line-height: 32px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .flow-arrow { font-size: 1.5rem; color: var(--green); }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .price-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 2px solid transparent;
+        }
+        .price-card.featured { border-color: var(--green); }
+        .price-card h3 { color: var(--green); margin-bottom: 0.5rem; }
+        .price-card .amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .price-card .amount span { font-size: 0.9rem; font-weight: 400; }
+        .price-card ul {
+            list-style: none;
+            margin-top: 1rem;
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .price-card ul li::before { content: "✓ "; color: var(--green); font-weight: 700; }
+        .price-card ul li { margin-bottom: 0.4rem; }
+
+        /* Footer */
+        footer {
+            background: var(--green-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        footer a { color: var(--green-light); }
+
+        /* Demo section */
+        .demo-section {
+            background: var(--green-light);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+        }
+        .demo-section h2 { margin-bottom: 1rem; }
+        .demo-section p { margin-bottom: 2rem; color: var(--text-light); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.6rem; }
+            .hero img { width: 200px; }
+            .flow { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <img src="logo.png" alt="MEGURU" class="header-logo">
+            <nav>
+                <a href="#problem">課題</a>
+                <a href="#features">特徴</a>
+                <a href="#how">仕組み</a>
+                <a href="#pricing">料金</a>
+                <a href="#demo">デモ</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <img src="logo.png" alt="MEGURU">
+        <h1>地域の共同配送を、<br>ソフトウェアで解決する。</h1>
+        <p>MEGURUは共同配送ネットワークをSaaSとして提供するプラットフォームです。
+        売買は自分でやる。配送だけ乗せたい。そんなニーズに応えます。</p>
+        <a href="#demo" class="cta-btn">デモを見る</a>
+    </section>
+
+    <section id="problem">
+        <h2>物流コストの課題</h2>
+        <div class="problem">
+            <h3>物流2024年問題 — コストは上がり続けている</h3>
+            <p>
+                ドライバー不足、燃料費高騰、小ロット配送の非効率。
+                地域の農家・小売店・飲食店にとって、配送コストは年々重くなっています。
+                「売り買いは自分でやるから、配送だけ安く使わせてほしい」
+                — そんな問い合わせが増えています。
+            </p>
+        </div>
+        <div class="problem">
+            <h3>共同配送の答えは出ている。でも仕組みがない。</h3>
+            <p>
+                やさいバスは共同配送で物流単価を半分にしました。
+                福祉法人や八百屋など「地域で運べる人が運ぶ」モデルです。
+                でもこのノウハウは、やさいバスの中に閉じ込められていました。
+                MEGURUはこれを、誰でも使えるインフラとして開放します。
+            </p>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2>MEGURUの特徴</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🚛</div>
+                <h3>配送だけを提供</h3>
+                <p>売買プラットフォームは不要。既存の受発注システムからAPIで荷物を投げるだけ。EC-CUBEプラグインも開発予定。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔀</div>
+                <h3>自動経路探索</h3>
+                <p>バス停接続グラフから最適な配送経路を自動計算。積替（Transit）による翌日配送にも対応。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏢</div>
+                <h3>運営者が主役</h3>
+                <p>M2Laboはソフトウェアだけ提供。車両・ドライバー・ルートは地域を知る運営者が管理します。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>料金は運営者が決める</h3>
+                <p>料金の「枠」だけ提供し、具体的な金額は運営者が設定。エリア別・サイズ別・顧客別に柔軟に対応。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔌</div>
+                <h3>外部連携はプラグイン</h3>
+                <p>ヤマト等の外部配送業者はプラグインとして接続。コアをシンプルに保ちます。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>テナント分離</h3>
+                <p>PostgreSQL RLSによる完全なデータ分離。運営者同士のデータは絶対に混ざりません。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how">
+        <h2>こう使います</h2>
+        <div class="flow">
+            <div class="flow-step">
+                <div class="num">1</div>
+                <p><strong>運営者登録</strong><br>エリア・ルート・バス停を設定</p>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="num">2</div>
+                <p><strong>荷主が依頼</strong><br>出発地・到着地・日付・ケース数だけ</p>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="num">3</div>
+                <p><strong>自動配車</strong><br>最適ルートを自動計算・便割当</p>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="num">4</div>
+                <p><strong>ドライバー配送</strong><br>アプリで集荷・配達を報告</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <h2>料金プラン</h2>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>Starter</h3>
+                <div class="amount">3<span>万円/月</span></div>
+                <ul>
+                    <li>ルート5本まで</li>
+                    <li>バス停20箇所まで</li>
+                    <li>API アクセス</li>
+                </ul>
+            </div>
+            <div class="price-card featured">
+                <h3>Standard</h3>
+                <div class="amount">8<span>万円/月</span></div>
+                <ul>
+                    <li>ルート20本まで</li>
+                    <li>バス停100箇所まで</li>
+                    <li>API + Webhook</li>
+                    <li>料金エンジン</li>
+                </ul>
+            </div>
+            <div class="price-card">
+                <h3>Pro</h3>
+                <div class="amount">20<span>万円/月</span></div>
+                <ul>
+                    <li>ルート無制限</li>
+                    <li>バス停無制限</li>
+                    <li>外部配送プラグイン</li>
+                    <li>専用サポート</li>
+                </ul>
+            </div>
+            <div class="price-card">
+                <h3>Enterprise</h3>
+                <div class="amount">応相談</div>
+                <ul>
+                    <li>カスタム開発</li>
+                    <li>オンプレミス対応</li>
+                    <li>SLA保証</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo">
+        <div class="demo-section">
+            <h2>デモ・お問い合わせ</h2>
+            <p>MEGURUの動作をご確認いただけます。<br>導入のご相談もお気軽にどうぞ。</p>
+            <a href="mailto:info@m2labo.com" class="cta-btn">お問い合わせ</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>MEGURU — 共同配送インフラ SaaS by <a href="https://m2labo.com">M2Labo</a></p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.7;">© 2026 M2Labo Inc.</p>
+    </footer>
+</body>
+</html>
